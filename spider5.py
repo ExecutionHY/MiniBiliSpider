@@ -74,6 +74,8 @@ logger.addHandler(fh)
 # *******************************************************
 def deamon():
 
+	global handle_signal
+
 	print('<daemon> 运行中 ...')
 
 	while True:
@@ -115,6 +117,7 @@ def deamon():
 
 			except:
 				# TODO logging
+				handle_signal = 1
 				print('<daemon> 失败！未能成功处理消息文本！')
 				continue
 
@@ -123,6 +126,7 @@ def deamon():
 
 			except:
 				# TODO logging
+				handle_signal = 1
 				print('<daemon> 失败！未能成功解析 JSON！')
 				continue
 
@@ -469,11 +473,12 @@ def get_type_videos(type_id, left, right):
 	global nonstop
 	global pn_sum
 	pn = 0
+	global handle_signal
 	handle_signal = None
 	videos = []
 
 	def handle_video_list(res):
-		nonlocal handle_signal
+		global handle_signal
 		global nonstop
 		global pn_sum
 		nonlocal videos
@@ -550,8 +555,8 @@ def main():
 	global nonstop
 	global pn_sum
 
-	fromidx = 18
-	frompn = 77400
+	fromidx = 30
+	frompn = 1800
 
 	for tid in type_list:
 		idx += 1
